@@ -2,7 +2,9 @@ class GroupsController < ApplicationController
   before_action :authenticate_user
 
   def index
-    render json: { message: "logged in" }
+    @groups = current_user.groups
+    # render json: { message: "Neato" }
+    render :index
   end
 
   def show
