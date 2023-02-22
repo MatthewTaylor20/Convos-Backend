@@ -10,8 +10,11 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.create(
-      title = params[:title]
-      image_url = params[:image_url]
+      title: params[:title],
     )
+    render json: {
+      message: "Group successfully created",
+      group_id: @group.id,
+    }
   end
 end
