@@ -1,4 +1,9 @@
 class MessagesController < ApplicationController
+  def index
+    @messages = Message.where(group_id: params[:group_id])
+    render :index
+  end
+
   def create
     @message = Message.create(
       user_id: current_user.id,

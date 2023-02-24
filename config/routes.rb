@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "/groups" => "groups#index"
   post "/groups" => "groups#create"
+  get "/messages" => "messages#index"
   post "/messages" => "messages#create"
   post "/users" => "users#create"
   post "/sessions" => "sessions#create"
