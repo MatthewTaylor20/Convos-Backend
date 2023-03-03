@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
   def index
     @messages = Message.where(group_id: params[:group_id])
+    @current_user_ = current_user
+
     render :index
   end
 
