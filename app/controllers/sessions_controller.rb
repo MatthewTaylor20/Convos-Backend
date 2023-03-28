@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
       )
       render json: { jwt: jwt,
                 email: user.email,
+                phone_number: user.phone_number,
                 user_id: user.id,
                 user_image_url: user.image_url,
                 first_name: user.first_name,
