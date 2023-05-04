@@ -1,3 +1,5 @@
+require "pusher"
+
 class GroupsController < ApplicationController
   before_action :authenticate_user
 
@@ -50,6 +52,21 @@ class GroupsController < ApplicationController
       group.destroy
       render json: { message: "Group, Messages, and GroupUsers successfully destroyed" }
     else
+      @message = Message.create(
+        user_id: current_user.id,
+        group_id: group.id,
+        body: "#{current_user.name} has left the chat.",
+        notification: true,
+      )
+      Pusher.trigger("channel_#{group.id}.convos", "new-message", {
+        id: @message.id,
+        user_id: @message.user_id,
+        sender_image: @message.user.image_url,
+        group_id: @message.group_id,
+        body: @message.body,
+        notification: @message.notification,
+        created_at: @message.create_timestamp,
+      })
       group_user = GroupUser.find_by(group_id: group.id, user_id: current_user.id)
       group_user.update(
         active: false,

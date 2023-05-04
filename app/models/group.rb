@@ -4,7 +4,11 @@ class Group < ApplicationRecord
   has_many :messages
 
   def most_recent_message
-    messages.last
+    message = messages.last
+    if message.notification
+      message = messages[-2]
+    end
+    message
   end
 
   def name
